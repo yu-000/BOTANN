@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ボタンカウンター</title>
+</head>
+<body>
+    <h1>ボタンが押された回数: <span id="counter">0</span></h1>
+    <button onclick="incrementCounter()">ボタンを押す</button>
+
+    <script>
+        // カウンター変数を初期化
+        let count = 0;
+
+        // ボタンがクリックされたときにカウンターを増やす関数
+        function incrementCounter() {
+            count++;
+            updateCounter();
+            
+            // サーバーにカウンターの値を送信
+            fetch('save_counter.php', {
+                method: 'POST',
+                body: JSON.stringify({ count }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
+
+        // カウンターの値をHTMLに表示する関数
+        function updateCounter() {
+            document.getElementById("counter").textContent = count;
+        }
+
+        // 3秒ごとにカウンターを更新するタイマーを設定
+        setInterval(updateCounter, 3000);
+    </script>
+</body>
+</html>
