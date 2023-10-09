@@ -8,14 +8,16 @@
     <button onclick="incrementCounter()">ボタンを押す</button>
 
     <script>
+        // カウンター変数を初期化
+        let count = 0;
 
         // ボタンがクリックされたときにカウンターを増やす関数
         function incrementCounter() {
             count++;
             updateCounter();
-            
+
             // サーバーにカウンターの値を送信
-            fetch('save_counter.php', {
+            fetch('update_counter.php', {
                 method: 'POST',
                 body: JSON.stringify({ count }),
                 headers: {
